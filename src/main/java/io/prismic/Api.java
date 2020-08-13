@@ -92,7 +92,9 @@ public class Api {
     JsonNode json = cache.getOrSet(
       url,
       5000L,
-      () -> HttpClient.fetch(url, logger, null, proxy)
+      //() -> HttpClient.fetch(url, logger, null, proxy)
+      () -> HttpClient.fetch(url, logger, cache, proxy)
+
     );
 
     ApiData apiData = ApiData.parse(json);

@@ -22,6 +22,8 @@ public class HttpClient {
       JsonNode cachedResult = cache.get(url);
       if (cachedResult != null) {
         return cachedResult;
+      }{
+        //System.out.println("CACHE MISS! " + url);
       }
 
       URLConnection connection;
