@@ -93,8 +93,13 @@ public interface Cache {
     }
 
     private Boolean isExpired(String key) {
+      /*
       Entry entry = this.cache.get(key);
       return entry != null && entry.expiration !=0 && entry.expiration < System.currentTimeMillis();
+      */
+
+      //System.out.println("Is Cache Empty: " + this.cache.isEmpty() );
+      return false; //cache never expires
     }
 
   }

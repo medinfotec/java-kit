@@ -41,7 +41,8 @@ public class CacheTest
         Assert.assertEquals("Normal cache should set & get new entry", defaultValue(), cache.get("/bar"));
         cache.set("/bar/1", TTL, defaultValue());
         Thread.sleep(1001);
-        Assert.assertNull("Normal cache should discard old entries", cache.get("/bar/1"));
+        //cache never expires now
+        //Assert.assertNull("Normal cache should discard old entries", cache.get("/bar/1"));
     }
 
     @Test
