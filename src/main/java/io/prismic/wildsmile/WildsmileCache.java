@@ -23,6 +23,9 @@ public class WildsmileCache implements io.prismic.Cache   {
       .build();
   }
 
+  public void invalidateCache(){
+    this.manualCache.invalidateAll();
+  }
 
   @Override
   public void set(String key, Long ttl, JsonNode response) {
