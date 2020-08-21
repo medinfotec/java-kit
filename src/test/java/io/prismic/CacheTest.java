@@ -3,7 +3,8 @@ package io.prismic;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.prismic.Cache.BuiltInCache;
+//import io.prismic.Cache.BuiltInCache;
+import io.prismic.wildsmile.WildsmileCache;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -54,7 +55,8 @@ public class CacheTest
 
     public static Cache fillCache(int nbDocuments)
     {
-        Cache cache = new BuiltInCache(10);
+        //Cache cache = new BuiltInCache(10);
+        Cache cache = new WildsmileCache(10);
         for(int i = 0; i < nbDocuments; i++) {
             cache.set("/foo/" + i, 1000L, defaultValue());
         }

@@ -17,13 +17,12 @@ public class HttpClient {
 
   public static JsonNode fetch(String url, Logger logger, Cache cache, Proxy proxy) {
     logger = (logger != null) ? logger : new Logger.NoLogger();
-    cache = (cache != null) ? cache : new Cache.NoCache();
+    //cache = (cache != null) ? cache : new Cache.NoCache();
+
     try {
       JsonNode cachedResult = cache.get(url);
       if (cachedResult != null) {
         return cachedResult;
-      }{
-        //System.out.println("CACHE MISS! " + url);
       }
 
       URLConnection connection;

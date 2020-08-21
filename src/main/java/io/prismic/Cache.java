@@ -1,6 +1,7 @@
 package io.prismic;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.prismic.wildsmile.WildsmileCache;
 import org.apache.commons.collections4.map.LRUMap;
 
 public interface Cache {
@@ -30,9 +31,11 @@ public interface Cache {
 
   // --
 
+
   class DefaultCache {
 
-    private static final Cache defaultCache = new BuiltInCache(999);
+    //private static final Cache defaultCache = new BuiltInCache(10);
+    private static final Cache defaultCache = new WildsmileCache(10);
 
     private DefaultCache() {}
 
@@ -41,12 +44,14 @@ public interface Cache {
     }
   }
 
+
   // --
 
   interface Callback {
     JsonNode execute();
   }
 
+  /*
   class BuiltInCache implements Cache {
 
     private final java.util.Map<String, Entry> cache;
@@ -66,10 +71,12 @@ public interface Cache {
 
     @Override
     public JsonNode get(String key) {
-      Entry entry = this.cache.get(key);
-      Boolean isExpired = this.isExpired(key);
-      if (entry != null && !isExpired) {
-        return entry.value;
+      synchronized(this.cache) {
+        Entry entry = this.cache.get(key);
+        Boolean isExpired = this.isExpired(key);
+        if (entry != null && !isExpired) {
+          return entry.value;
+        }
       }
       return null;
     }
@@ -77,7 +84,9 @@ public interface Cache {
     @Override
     public void set(String key, Long ttl, JsonNode response) {
       Long expiration = ttl + System.currentTimeMillis();
-      this.cache.put(key, new Entry(expiration, response));
+      synchronized(this.cache){
+        this.cache.put(key, new Entry(expiration, response));
+      }
     }
 
     @Override
@@ -93,14 +102,18 @@ public interface Cache {
     }
 
     private Boolean isExpired(String key) {
-      /*
-      Entry entry = this.cache.get(key);
-      return entry != null && entry.expiration !=0 && entry.expiration < System.currentTimeMillis();
-      */
+
+      System.out.println("Cache Size: " + this.cache.size());
+
+
+     // Entry entry = this.cache.get(key);
+    //  return entry != null && entry.expiration !=0 && entry.expiration < System.currentTimeMillis();
+
 
       //System.out.println("Is Cache Empty: " + this.cache.isEmpty() );
       return false; //cache never expires
     }
 
   }
+  */
 }
